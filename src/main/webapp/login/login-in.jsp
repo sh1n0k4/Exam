@@ -1,5 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8"%>
-<%@include file="../header.html"%>
+<%@include file="../header.jsp"%>
 
 <!-- Lonin.actionにアクセス -->
 <form action="Login.action" method="post">
@@ -14,4 +14,4 @@
 	</p>
 </form>
 
-<%@include file="../footer.html"%>
+<%@include file="../footer.jsp"%>
