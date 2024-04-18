@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
 public class LoginAction extends Action {
-	public String execute(
+	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
 
@@ -18,13 +18,15 @@ public class LoginAction extends Action {
 		String password=request.getParameter("password");
 
 		TeacherDAO dao=new TeacherDAO();
-		Teacher teacher=dao.search(id, password);
+		Teacher teacher=dao.login(id, password);
 		
 		if (teacher!=null) {
 			session.setAttribute("teacher", teacher);
-			return "login-out.jsp";
+	        request.getRequestDispatcher("/login-out.jsp").forward(request, response);
 		}
 		
-		return "login-error.jsp"; 
+		else {
+			request.getRequestDispatcher("/login-error.jsp").forward(request, response);
+		}
 	}
 }
