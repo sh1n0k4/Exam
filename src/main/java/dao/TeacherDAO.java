@@ -8,7 +8,7 @@ import bean.School;
 import bean.Teacher;
 
 public class TeacherDAO extends DAO {
-	public Teacher search(String id, String password)
+	public Teacher login(String id, String password)
 		throws Exception {
 		
 		School s = new School();
