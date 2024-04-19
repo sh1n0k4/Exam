@@ -2,7 +2,7 @@
 <%@include file="../header.jsp"%>
 
 <!-- Lonin.actionにアクセス -->
-<form action="Login.action" method="post">
+<form action="LoginExecute.action" method="post">
 	<p>
 		ID<input type="text" name="id">
 	</p>
