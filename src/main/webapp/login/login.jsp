@@ -1,7 +1,6 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@include file="../header.jsp"%>
 
-<!-- Lonin.actionにアクセス -->
 <form action="LoginExecute.action" method="post">
 	<p>
 		ID<input type="text" name="id">
