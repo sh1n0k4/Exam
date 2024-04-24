@@ -33,7 +33,7 @@ public class SubjectDAO extends DAO {
 	
 	// 一覧
 	public List<Subject> filter(School school) throws Exception {
-		List<Subject> sb_list=new ArrayList<>();
+		List<Subject> list=new ArrayList<>();
 		
 		Connection con =getConnection();
 		
@@ -46,13 +46,13 @@ public class SubjectDAO extends DAO {
 			sj.setCd(rs.getString("cd"));
 			sj.setName(rs.getString("name"));
 			sj.setSchool(school);
-			sb_list.add(sj);
+			list.add(sj);
 		}
 		
 		st.close();
 		con.close();
 		
-		return sb_list;
+		return list;
 	}
 	
 	// 保存

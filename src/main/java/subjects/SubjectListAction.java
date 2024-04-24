@@ -15,11 +15,12 @@ public class SubjectListAction extends Action {
 	) throws Exception {
 		School school=new School();
 		school.setCd(request.getParameter("school_cd"));
+		school.setName(request.getParameter("name"));
 		
 		SubjectDAO dao=new SubjectDAO();
-		List<Subject> sb_list=dao.filter(school);
+		List<Subject> list=dao.filter(school);
 		
-		request.setAttribute("sb_list", sb_list);
+		request.setAttribute("list", list);
 		
         request.getRequestDispatcher("subject_list.jsp").forward(request, response);
 	} 
