@@ -37,7 +37,7 @@ public class SubjectDAO extends DAO {
 		
 		Connection con =getConnection();
 		
-		PreparedStatement st=con.prepareStatement("select cd, name from where school_cd=?");
+		PreparedStatement st=con.prepareStatement("select cd, name from subject where school_cd=?");
 		st.setString(1, school.getCd());
 		ResultSet rs=st.executeQuery();
 		
