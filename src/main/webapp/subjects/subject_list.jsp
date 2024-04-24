@@ -12,8 +12,8 @@
 </tr>
 <c:forEach var="subject" subject="${sb_list}">
 <tr> 
-<td>${subject.cd}</td>
-<td>${subject.name}</td>
+<td>${cd}</td>
+<td>${name}</td>
 <td><a href="SubjectUpdate.action?${subject.cd}">変更</a></td>
 <td><a href="SubjectDelete.action?${subject.cd}">削除</a></td>
 </tr>
