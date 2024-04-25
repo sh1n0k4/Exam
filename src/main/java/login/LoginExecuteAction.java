@@ -23,7 +23,7 @@ public class LoginExecuteAction extends Action {
 			Teacher teacher=dao.login(id, password);
 			
 			if (teacher!=null) {
-				session.setAttribute("teacher", teacher);
+				session.setAttribute("user", teacher);
 				request.getRequestDispatcher("../menu.jsp").forward(request, response);
 			}
 			else {
