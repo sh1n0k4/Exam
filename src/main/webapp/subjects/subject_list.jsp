@@ -1,5 +1,4 @@
 <%@page contentType="text/html; charset=UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../header.jsp" %>
 <%@include file="../sidebar.jsp" %>
 
@@ -11,7 +10,7 @@
 		<th>科目コード</th>
 		<th>科目名</th>
 	</tr>
-	<c:forEach var="subject" items="${list}">
+	<c:forEach var="subject" items="${subjects}">
 		<tr> 
 			<td>${subject.cd}</td>
 			<td>${subject.name}</td>
