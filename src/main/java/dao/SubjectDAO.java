@@ -10,16 +10,20 @@ import bean.School;
 import bean.Subject;
 
 public class SubjectDAO extends DAO {
-	// 
 	public Subject get(String cd, School school) throws Exception {
+		// 科目インスタンスを初期化
+		Subject sj=new Subject();
+		// データベースのコネクションを確立
 		Connection con=getConnection();
 		
+		// PreparedStatementにSQL文をセット
 		PreparedStatement st=con.prepareStatement("select * from subject where cd=? and school_cd=?");
+		// PreparedStatementに科目コード、学校コードをバインド
 		st.setString(1, cd);
 		st.setString(2, school.getCd());
+		// PreparedStatementを実行
 		ResultSet rs=st.executeQuery();
-		
-		Subject sj=new Subject();
+					
 		if (rs.next()) {
 			sj.setCd(rs.getString("cd"));
 			sj.setName(rs.getString("name"));
@@ -28,7 +32,7 @@ public class SubjectDAO extends DAO {
 		
 		st.close();
 		con.close();
-		return sj;
+		return sj;	
 	}
 	
 	// 一覧
@@ -37,7 +41,7 @@ public class SubjectDAO extends DAO {
 		
 		Connection con =getConnection();
 		
-		PreparedStatement st=con.prepareStatement("select cd, name from subject where school_cd=?");
+		PreparedStatement st=con.prepareStatement("select * from subject where school_cd=?");
 		st.setString(1, school.getCd());
 		ResultSet rs=st.executeQuery();
 		
@@ -57,18 +61,31 @@ public class SubjectDAO extends DAO {
 	
 	// 保存
 	public boolean save(Subject subject) throws Exception {
+		// コネクションを確立
 		Connection con=getConnection();
+		// PreparedStatement
+		PreparedStatement st=null;
 		
-		PreparedStatement st=con.prepareStatement("update subject set name=? where cd=? and school_cd=?;"
-				+ "insert into subject (cd, name, school_cd) select ?, ?, ? where not exsists(select 1 from subject where cd=? and school_cd=?;");
-		st.setString(1, subject.getName());
-		st.setString(2, subject.getCd());
-		st.setString(3, subject.getSchool().getCd());
-		st.setString(4, subject.getCd());
-		st.setString(5, subject.getName());
-		st.setString(6, subject.getSchool().getCd());
-		st.setString(7, subject.getCd());
-		st.setString(8, subject.getSchool().getCd());
+		// データベースから科目を取得
+		Subject old=get(subject.getCd(), subject.getSchool());
+		
+		if (old==null) {
+			// 科目が存在しなかった場合
+			// PreparedStatementにinsert文をセット
+			st=con.prepareStatement("insert into subject(cd, name, school_cd) values(?, ?, ?)");
+			// prepareStatementに値をバインド
+			st.setString(1, subject.getCd());
+			st.setString(2, subject.getName());
+			st.setString(3, subject.getSchool().getCd());
+		} else {
+			// 科目が存在した場合
+			// prepareStatementにupdate文をセット
+			st=con.prepareStatement("update subject set name=? where cd=? and school_cd=?");
+			st.setString(1, subject.getName());
+			st.setString(2, subject.getCd());
+			st.setString(3, subject.getSchool().getCd());
+		}
+		
 		int line=st.executeUpdate();
 		
 		st.close();
