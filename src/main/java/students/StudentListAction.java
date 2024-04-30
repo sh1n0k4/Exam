@@ -32,7 +32,7 @@ public class StudentListAction extends Action {
 		LocalDate todaysDate=LocalDate.now();
 		int year=todaysDate.getYear();
 		StudentDAO sDAO=new StudentDAO();
-		ClassNumDAO cNumDAO=new ClassNumDAO();
+		
 		Map<String, String> errors=new HashMap<>();
 		
 		entYearStr=request.getParameter("f1");
