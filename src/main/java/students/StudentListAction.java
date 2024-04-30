@@ -8,6 +8,7 @@ import java.util.Map;
 
 import bean.Student;
 import bean.Teacher;
+import dao.ClassNumDAO;
 import dao.StudentDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,6 +21,7 @@ public class StudentListAction extends Action {
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
 	) throws Exception {
+		// セッションからユーザー情報を取得
 		HttpSession session = request.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("user");
 		
@@ -29,17 +31,22 @@ public class StudentListAction extends Action {
 		int entYear=0;
 		boolean isAttend=false;
 		List<Student> students=null;
+		
+		// 現在の年を取得
 		LocalDate todaysDate=LocalDate.now();
 		int year=todaysDate.getYear();
+		ClassNumDAO cDAO=new ClassNumDAO();
 		StudentDAO sDAO=new StudentDAO();
 		
+		// エラーメッセージのマップ
 		Map<String, String> errors=new HashMap<>();
 		
+		// リクエストからパラメータを取得
 		entYearStr=request.getParameter("f1");
 		classNum=request.getParameter("f2");
 		isAttendStr=request.getParameter("f3");
 		
-		List<String> list=cNumDAO.filter(teacher.getSchool());
+		List<String> list=cDAO.filter(teacher.getSchool());
 		
 		if (entYear !=0 && !classNum.equals("0")) {
 			students=sDAO.filter(teacher.getSchool(), entYear, classNum, isAttend);
