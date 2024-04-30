@@ -22,15 +22,26 @@ public class LoginExecuteAction extends Action {
 			TeacherDAO dao=new TeacherDAO();
 			Teacher teacher=dao.login(id, password);
 			
+			// 入力値の空欄チェック
+            if (id == null || id.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+                request.setAttribute("error_msg", "このフィールドを入力してください。");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+                return; // 以降の処理を中断
+            }
+			
 			if (teacher!=null) {
 				session.setAttribute("user", teacher);
 				request.getRequestDispatcher("../menu.jsp").forward(request, response);
 			}
 			else {
-			    System.out.println("IDまたはパスワードが一致しませんでした。");
+				request.setAttribute("error_msg", "IDまたはパスワードが一致しませんでした。");
+				request.getRequestDispatcher("login.jsp").forward(request, response);
+
 			}
 		}catch (IOException e) {
-		    System.out.println("このフィールドを入力してください。");
+			request.setAttribute("error_msg", "このフィールドを入力してください。1");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+
 		}
 	}
 }
