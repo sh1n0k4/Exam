@@ -68,6 +68,26 @@ public class StudentDAO extends DAO {
 		return list;
 	}
 	
+	public List<Student> filter(School school, int entYear, boolean isAttend) throws Exception {
+		List<Student> list=new ArrayList<>();
+		
+		Connection con=getConnection();
+		
+		PreparedStatement st=con.prepareStatement("select * from student where school_cd=?");
+		st.setString(1, school.getCd());
+		ResultSet rs=st.executeQuery();
+		
+		while (rs.next()) {
+			Student sd=new Student();
+			sd.setEntYear(rs.getInt("entYear"));
+			sd.setIsAttend(rs.getBoolean("isAttend"));
+			list.add(sd);
+		}
+		
+		st.close();
+		con.close();
+		return list;
+	}
 	public List<Student> filter(School school, boolean isAttend) throws Exception {
 		List<Student> list=new ArrayList<>();
 		
