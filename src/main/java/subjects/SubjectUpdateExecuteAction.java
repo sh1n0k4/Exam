@@ -1,7 +1,5 @@
 package subjects;
 
-import java.io.IOException;
-
 import bean.Subject;
 import bean.Teacher;
 import dao.SubjectDAO;
@@ -9,7 +7,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import tool.Action;
-import tool.Util;
 
 public class SubjectUpdateExecuteAction extends Action {
 	public void execute(
@@ -20,25 +17,29 @@ public class SubjectUpdateExecuteAction extends Action {
 	
 			String cd=request.getParameter("cd");
 			String name=request.getParameter("name");
+			Teacher teacher=(Teacher)session.getAttribute("user");
 			
-			Util u=new Util();
-			Teacher t=u.getUser(request);
+			if (name == null || name.trim().isEmpty()) {
+                request.setAttribute("error_msg", "このフィールドを入力してください。");
+                request.getRequestDispatcher("subject_update.jsp").forward(request, response);
+                return; // 以降の処理を中断
+            }
 	
 			SubjectDAO dao=new SubjectDAO();
-			Subject s=new Subject();
-			s.setCd(cd);
-			s.setName(name);
-			s.setSchool(t.getSchool());
+			Subject subject=new Subject();
+			subject.setCd(cd);
+			subject.setName(name);
+			subject.setSchool(teacher.getSchool());
 			
-			dao.save(s);
-			
-			if (s!=null) {
-				session.setAttribute("subject", s);
-				request.getRequestDispatcher("subject_create_done.jsp").forward(request, response);
+			boolean updated=dao.save(subject);
+						
+			if (updated) {
+				request.getRequestDispatcher("subject_update_done.jsp").forward(request, response);
 			}
 			
-		}catch (IOException e) {
-			System.out.println("このフィールドを入力してください。");
+		}catch (Exception e) {
+			request.setAttribute("error_msg", "");
+			request.getRequestDispatcher("subject_update.jsp").forward(request, response);
 		}
 	}
 }

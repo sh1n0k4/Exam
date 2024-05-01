@@ -1,23 +1,31 @@
 package subjects;
 
+import bean.Subject;
 import bean.Teacher;
 import dao.SubjectDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import tool.Action;
-import tool.Util;
 
 public class SubjectUpdateAction extends Action {
+	@Override
 	public void execute(
 		HttpServletRequest request, HttpServletResponse response
-	) throws Exception {		
+	) throws Exception {
+		HttpSession session=request.getSession();
 		String cd=request.getParameter("cd");
-		Util u=new Util();
-		Teacher t=u.getUser(request);
-
-		SubjectDAO dao=new SubjectDAO();
-		dao.get(cd, t.getSchool());
+		Teacher teacher=(Teacher)session.getAttribute("user");
 		
-        request.getRequestDispatcher("subject_update.jsp").forward(request, response);
+		SubjectDAO dao=new SubjectDAO();
+		Subject subject=dao.get(cd, teacher.getSchool());
+		
+		if (subject!=null) {
+			request.setAttribute("subject", subject);
+			request.getRequestDispatcher("subject_update.jsp").forward(request, response);
+		} else {
+            request.setAttribute("error_msg_s", "科目が存在していません");
+            request.getRequestDispatcher("subject_update.jsp").forward(request, response);
+        }
 	} 
 }
