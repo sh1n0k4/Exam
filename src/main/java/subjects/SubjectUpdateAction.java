@@ -23,9 +23,6 @@ public class SubjectUpdateAction extends Action {
 		if (subject!=null) {
 			request.setAttribute("subject", subject);
 			request.getRequestDispatcher("subject_update.jsp").forward(request, response);
-		} else {
-            request.setAttribute("error_msg_s", "科目が存在していません");
-            request.getRequestDispatcher("subject_update.jsp").forward(request, response);
-        }
+		}
 	} 
 }

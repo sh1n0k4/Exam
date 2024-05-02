@@ -6,35 +6,16 @@
 <%
     // リクエストスコープから科目情報を取得
     Subject subject = (Subject) request.getAttribute("subject");
-    String error_msg_s = (String) request.getAttribute("error_msg_s");
-    String error_msg = (String) request.getAttribute("error_msg");
 %>
 
 <h2>科目情報変更</h2>
 <form action="SubjectUpdateExecute.action" method="post">
 <label>科目コード</label><br>
-<p><input type="text" name="cd" value="${subject.cd}" readonly></p><br>
-<% 
-if (error_msg_s != null) {
-%>
-    <div>
-        <%= error_msg_s %>
-    </div>
-<%
-}
-%>
+<input type="text" name="cd" value="${subject.cd}" readonly><br>
+
 <label>科目名</label><br>
 <input type="text" name="name"><br>
-<% 
-if (error_msg != null) {
-%>
-    <div>
-        <%= error_msg %>
-    </div>
-<%
-}
-%>
-   <input type="hidden" name="school_cd" value="${request.getAttribute("school_cd")}"><br>
+<input type="hidden" name="school_cd" value="${request.getAttribute("school_cd")}"><br>
 
 <input type="submit" value="変更"><br>
 </form>
