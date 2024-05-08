@@ -24,7 +24,7 @@ public class Student implements java.io.Serializable {
 		return classNum;
 	}
 	
-	public boolean getIsAttend() {
+	public boolean isAttend() {
 		return isAttend;
 	}
 	
@@ -48,7 +48,7 @@ public class Student implements java.io.Serializable {
 		this.classNum=classNum;
 	}
 	
-	public void setIsAttend(boolean isAttend) {
+	public void setAttend(boolean isAttend) {
 		this.isAttend=isAttend;
 	}
 	

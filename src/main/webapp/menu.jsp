@@ -2,7 +2,7 @@
 <%@include file="header.jsp"%>
 
 <h2>メニュー</h2>
-<a href="StudentList.action">学生管理</a>
+<a href="../students/StudentList.action">学生管理</a>
 <div>成績管理
 <a href="TestRegist.action">成績登録</a>
 <a href="TestList.action">成績参照</a>

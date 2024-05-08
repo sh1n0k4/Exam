@@ -19,7 +19,7 @@ public class ClassNumDAO extends DAO {
 		ResultSet rs=st.executeQuery();
 		
 		while (rs.next()) {
-			list.add("class_num");
+			list.add(rs.getString("class_num"));
 		}
 		
 		st.close();
