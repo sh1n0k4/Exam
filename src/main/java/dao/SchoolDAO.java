@@ -13,7 +13,7 @@ public class SchoolDAO extends DAO {
 		Connection con=getConnection();
 		PreparedStatement st=null;
 		try {
-			st=con.prepareStatement("select * from schoolwhere cd=?");
+			st=con.prepareStatement("select * from school where cd=?");
 			st.setString(1, school_cd);
 			ResultSet rs=st.executeQuery();
 			
