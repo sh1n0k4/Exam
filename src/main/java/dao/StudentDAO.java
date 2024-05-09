@@ -215,12 +215,11 @@ List<Student> list=new ArrayList<>();
 		int line=0;
 		try {
 			if (old==null) {
-				st=con.prepareStatement("insert into student(no, name, ent_year, class_num, is_attend, school_cd) vlaues(?, ?, ?, ?, ?, ?)");
+				st=con.prepareStatement("insert into student(no, name, ent_year, class_num, is_attend, school_cd) values(?, ?, ?, ?, true, ?)");
 				st.setString(1, student.getNo());
 				st.setString(2, student.getName());
 				st.setInt(3, student.getEntYear());
 				st.setString(4, student.getClassNum());
-				st.setBoolean(5, student.isAttend());
 				st.setString(5, student.getSchool().getCd());
 			} else {
 				st=con.prepareStatement("update student set name=?, is_Attend=?, class_Num=? where no=?");
