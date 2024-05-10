@@ -14,8 +14,8 @@
 <input type="text" name="cd" value="${subject.cd}" readonly><br>
 
 <label>科目名</label><br>
-<input type="text" name="name"><br>
-<input type="hidden" name="school_cd" value="${request.getAttribute("school_cd")}"><br>
+<input type="text" name="name" placeholder="科目名を入力してください" required><br>
+<input type="hidden" name="school_cd"><br>
 
 <input type="submit" value="変更"><br>
 </form>

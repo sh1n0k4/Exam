@@ -3,41 +3,54 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import bean.School;
 import bean.Teacher;
 
 public class TeacherDAO extends DAO {
 	public Teacher login(String id, String password)
 		throws Exception {
 		
-		School s = new School();
 		Teacher t = new Teacher();
 		
 		Connection con=getConnection();
-
-		PreparedStatement st;
-		st=con.prepareStatement(
-			"select * from teacher inner join school on teacher.school_cd = school.cd where id = ? and password = ?");
-		st.setString(1, id);
-		st.setString(2, password);
-		ResultSet rs=st.executeQuery();
-
-		if (rs.next()) {
-			t.setId(rs.getString("id"));
-			t.setPassword(rs.getString("password"));
-			t.setName(rs.getString("school.name"));
-			s.setCd(rs.getString("school.cd"));
-			s.setName(rs.getString("school.name"));
-			t.setSchool(s);
+		PreparedStatement st=null;
+		
+		try {
+			st=con.prepareStatement(
+				"select * from teacher where id = ? and password = ?");
+			st.setString(1, id);
+			st.setString(2, password);
+			ResultSet rs=st.executeQuery();
 			
-			st.close();
-			con.close();
-			return t;
-		}
+			SchoolDAO sDAO=new SchoolDAO();
 
-		st.close();
-		con.close();
+			if (rs.next()) {
+				t.setId(rs.getString("id"));
+				t.setPassword(rs.getString("password"));
+				t.setName(rs.getString("name"));
+				t.setSchool(sDAO.get(rs.getString("school_cd")));
+			} else {
+				t=null;
+			}
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			if (st!=null) {
+				try {
+					st.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			if (con!=null) {
+				try {
+					con.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
 		return t;
 	}
 }

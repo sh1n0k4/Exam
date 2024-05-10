@@ -14,7 +14,7 @@
 
 <div>
 <label for="name">科目名</label><br>
-<input type="text" name="name" id="name"><br>
+<input type="text" name="name" id="name" required><br>
 </div>
 
 <input type="submit" value="登録"><br>

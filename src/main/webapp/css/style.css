@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	padding: 30px 30px 30px 20px;
+	font-size: 26px;
+	background-color: #E8F1FF;
+}
+
+h2 {
+}

@@ -3,26 +3,16 @@
 
 <h2>ログイン</h2>
 
-<% 
-String error_msg = (String) request.getAttribute("error_msg");
-if (error_msg != null) {
-%>
-    <div>
-        <%= error_msg %>
-    </div>
-<%
-}
-%>
-
 <form action="LoginExecute.action" method="post">
+	<div class="mt-2 text-warning">${errors.get("login")}</div>
 	<p>
-		ID<input type="text" name="id">
+		<input type="text" name="id" placeholder="ID" required>
 	</p>
 	<p>
-		パスワード<input type="password" name="password">
+		<input type="password" name="password" placeholder="パスワード" required>
 	</p>
 	<input type="checkbox" name="chk_d_ps">
-	<label>	パスワードを表示</label>
+	<label for="chk_d_ps">パスワードを表示</label>
 	<p>
 		<input type="submit" value="ログイン">
 	</p>
