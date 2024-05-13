@@ -1,15 +1,36 @@
 @charset "UTF-8";
 
+
 body {
 	margin: 0;
 	padding: 0;
 }
 
 h1 {
-	padding: 30px 30px 30px 20px;
-	font-size: 26px;
+	padding: 10px 15px 10px 35px;
 	background-color: #E8F1FF;
+	width: 980;
+	margin: 0 auto;
+	font-weight: normal; /* 太字を解除 */
+	position: relative; /* 絶対位置のための親要素として機能 */
 }
 
-h2 {
+#logout {
+	position: absolute; /* 絶対位置で配置 */
+	right: 35px; /* 右端からの距離 */
+	bottom: 5px; /* 下端からの距離 */
+	font-size: 16px;
+	font-weight: normal; /* 太字を解除 */
+}
+
+.form-container {
+    margin: 0 auto;
+    width: 980px;
+}
+
+footer {
+	text-align: center; /* 水平方向に中央に配置 */
+	background-color: #E8E9E9;
+	width: 980;
+	margin: 0 auto;
 }

@@ -1,9 +1,10 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@include file="../header.jsp"%>
 
-<h2>ログイン</h2>
-
+<div class="form-container">
 <form action="LoginExecute.action" method="post">
+	<h2>ログイン</h2>
+
 	<div class="mt-2 text-warning">${errors.get("login")}</div>
 	<p>
 		<input type="text" name="id" placeholder="ID" required>
@@ -17,5 +18,6 @@
 		<input type="submit" value="ログイン">
 	</p>
 </form>
+</div>
 
 <%@include file="../footer.jsp"%>
