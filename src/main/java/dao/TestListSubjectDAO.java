@@ -12,7 +12,6 @@ import bean.Subject;
 import bean.TestListSubject;
 
 public class TestListSubjectDAO extends DAO {
-	private String baseSql="select * from test inner join student on test.student_no = student.no where school_cd=?";
 	public List<TestListSubject> postFilter(ResultSet rSet) {
 		List<TestListSubject> list=new ArrayList<>();
 		try {
@@ -37,13 +36,17 @@ public class TestListSubjectDAO extends DAO {
 		
 		PreparedStatement st=null;
 		ResultSet rs=null;
-		
-		String condition=" and ent_year=? and class_num=? and subject_cd=?";
-	
-		String order=" order by student.no asc";
 
 		try {
-			st=con.prepareStatement(baseSql + condition + order);
+			st=con.prepareStatement("select student.no, student.name, student.ent_year, student.is_attend, subject.cd, subject.name, a.no, a.point, b.no as no, b.point as point "
+					+ "from student inner join subject on student.school_cd = subject.school_cd "
+					+ "left outer join "
+					+ "test as a left join test as b on a.student_no = b.student_no and a.subject_cd = b.subject_cd and a.no <> b.no "
+					+ "on student.no = a.student_no and subject.cd = a.subject_cd "
+					+ "where (a.no = 1 or (a.no = 2 and b.no is null)) and student.school_cd =? "
+					+ "and student.ent_year=? "
+					+ "and student.class_num=? "
+					+ "and subject.cd=?;");
 			st.setString(1, school.getCd());
 			st.setInt(2, entYear);
 			st.setString(3, classNum);
