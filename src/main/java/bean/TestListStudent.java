@@ -6,7 +6,7 @@ public class TestListStudent implements java.io.Serializable {
 	private int num;
 	private int point;
 	
-	public String getSubjctName() {
+	public String getSubjectName() {
 		return subjectName;
 	}
 	
