@@ -18,10 +18,17 @@ public class TestListSubjectDAO extends DAO {
 			while (rSet.next()) {
 				TestListSubject tls=new TestListSubject();
 				tls.setEntYear(rSet.getInt("ent_year"));
-				tls.setStudentNo(rSet.getString("student_no"));
+				tls.setStudentNo(rSet.getString("student.no"));
 				tls.setStudentName(rSet.getString("student.name"));
 				tls.setClassNum(rSet.getString("class_num"));
-				tls.putPoint(rSet.getInt("test.no"), rSet.getInt("point"));
+
+				if (rSet.getObject("a.no") != null) {
+                    tls.putPoint(rSet.getInt("a.no"), rSet.getInt("a.point"));
+                }
+                if (rSet.getObject("b.no") != null) {
+                    tls.putPoint(rSet.getInt("b.no"), rSet.getInt("b.point"));
+                }
+                
 				list.add(tls);
 			}
 		} catch (SQLException | NullPointerException e) {
@@ -38,7 +45,8 @@ public class TestListSubjectDAO extends DAO {
 		ResultSet rs=null;
 
 		try {
-			st=con.prepareStatement("select student.no, student.name, student.ent_year, student.is_attend, subject.cd, subject.name, a.no, a.point, b.no as no, b.point as point "
+			st=con.prepareStatement("select student.no, student.name, student.ent_year, student.is_attend, subject.cd, subject.name subject_name, "
+					+ "a.no as a_no, a.point as a_point , b.no as b_no, b.point as b_point "
 					+ "from student inner join subject on student.school_cd = subject.school_cd "
 					+ "left outer join "
 					+ "test as a left join test as b on a.student_no = b.student_no and a.subject_cd = b.subject_cd and a.no <> b.no "
