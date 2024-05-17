@@ -4,7 +4,7 @@
 <%@include file="../sidebar.jsp" %>
 
 <section>
-	<h2">学生管理</h2>
+	<h2>学生管理</h2>
 	<div>
 		<a href="StudentCreate.action">新規登録</a>
 	</div>
