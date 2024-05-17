@@ -22,8 +22,7 @@ public class FrontController extends HttpServlet {
 			Action action=(Action)Class.forName(name).getDeclaredConstructor().newInstance();
 			action.execute(request,  response);
 		} catch (Exception e) {
-			e.printStackTrace(out);		// 完成したらoutを消す
-			// request.getRequestDispatcher("/error.jsp").forward(request, response);
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
 		}
 	}
 	
